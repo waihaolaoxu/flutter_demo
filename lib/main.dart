@@ -90,11 +90,19 @@ class Tab1Page extends StatelessWidget {
             },
           ),
           ElevatedButton(
-            child: Text('demo'),
+            child: Text('Flutter demo'),
             onPressed: () {
               // Navigate to second route when tapped.
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => FlutterDemo()));
+            },
+          ),
+          ElevatedButton(
+            child: Text('Demo'),
+            onPressed: () {
+              // Navigate to second route when tapped.
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Demo()));
             },
           ),
         ],

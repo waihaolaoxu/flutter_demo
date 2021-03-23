@@ -78,11 +78,14 @@ class FlutterDemo extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Image.asset(
-              'images/lake.png',
-              width: 600,
-              height: 240,
-              fit: BoxFit.cover,
+            // Image.asset(
+            //   'images/lake.png',
+            //   width: 600,
+            //   height: 240,
+            //   fit: BoxFit.cover,
+            // ),
+            Image(
+              image: AssetImage('images/lake.png'),
             ),
             titleSection,
             buttonSection,
