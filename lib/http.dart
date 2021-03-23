@@ -4,19 +4,29 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<Album> fetchAlbum() async {
-  final response =
-      await http.get(Uri.https('jsonplaceholder.typicode.com', 'albums/1'));
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
 
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    return Album.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
-  }
+// 从远程
+// Future<Album> fetchAlbum() async {
+//   final response =
+//       await http.get(Uri.https('jsonplaceholder.typicode.com', 'albums/1'));
+
+//   if (response.statusCode == 200) {
+//     // If the server did return a 200 OK response,
+//     // then parse the JSON.
+//     return Album.fromJson(jsonDecode(response.body));
+//   } else {
+//     // If the server did not return a 200 OK response,
+//     // then throw an exception.
+//     throw Exception('Failed to load album');
+//   }
+// }
+
+// 从本地资源
+Future<Album> fetchAlbum() async {
+  final data = await rootBundle.loadString('assets/js/mock_api.json');
+  return Album.fromJson(jsonDecode(data));
 }
 
 class Album {
