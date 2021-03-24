@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter/http.dart';
-import 'package:my_flutter/list.dart';
-import 'package:my_flutter/flutter_demo.dart';
-import 'package:my_flutter/demo.dart';
+
+import 'package:my_flutter/studying_list.dart';
+import 'package:my_flutter/demo/http.dart';
+import 'package:my_flutter/demo/flutter_demo.dart';
+import 'package:my_flutter/demo/index.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,6 +24,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
+  static List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    DemoMenu(),
+    StudyList()
+  ];
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -31,12 +37,11 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: Text('老徐的 Flutter Demo'),
       ),
-      body: Tab1Page(),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -45,7 +50,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Business',
+            label: 'Demo',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
@@ -53,7 +58,7 @@ class _HomeState extends State<Home> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.blueAccent,
         onTap: _onItemTapped,
       ),
     );
@@ -61,67 +66,37 @@ class _HomeState extends State<Home> {
   }
 }
 
-
 // tab1
-class Tab1Page extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: [
-          Image.asset(
-            'images/lake.png',
-            width: 600,
-            height: 240,
-            fit: BoxFit.cover,
-          ),
-          ElevatedButton(
-            child: Text('跳转http页面'),
-            onPressed: () {
-              // Navigate to second route when tapped.
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HttpDemo()));
-            },
-          ),
-          ElevatedButton(
-            child: Text('学习清单'),
-            onPressed: () {
-              // Navigate to second route when tapped.
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => StudyList()));
-            },
-          ),
-          ElevatedButton(
-            child: Text('Flutter demo'),
-            onPressed: () {
-              // Navigate to second route when tapped.
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FlutterDemo()));
-            },
-          ),
-          ElevatedButton(
-            child: Text('Demo'),
-            onPressed: () {
-              // Navigate to second route when tapped.
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Demo()));
-            },
-          ),
-        ],
-      );
-  }
-}
-
-// tab2
-class Tab2Page extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text('tab2')
+      children: [
+        Image.asset(
+          'images/lake.png',
+          width: 600,
+          height: 240,
+          fit: BoxFit.cover,
+        ),
+        ElevatedButton(
+          child: Text('跳转http页面'),
+          onPressed: () {
+            // Navigate to second route when tapped.
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HttpDemo()));
+          },
+        ),
+        ElevatedButton(
+          child: Text('Flutter demo'),
+          onPressed: () {
+            // Navigate to second route when tapped.
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => FlutterDemo("上个页面传过来的参数")));
+          },
+        ),
+      ],
     );
   }
 }
-
-
-
-
-

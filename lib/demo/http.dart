@@ -8,26 +8,26 @@ import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 
 // 从远程
-// Future<Album> fetchAlbum() async {
-//   final response =
-//       await http.get(Uri.https('jsonplaceholder.typicode.com', 'albums/1'));
+Future<Album> fetchAlbum() async {
+  final response =
+      await http.get(Uri.https('jsonplaceholder.typicode.com', 'albums/1'));
 
-//   if (response.statusCode == 200) {
-//     // If the server did return a 200 OK response,
-//     // then parse the JSON.
-//     return Album.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     throw Exception('Failed to load album');
-//   }
-// }
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return Album.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
+}
 
 // 从本地资源
-Future<Album> fetchAlbum() async {
-  final data = await rootBundle.loadString('assets/js/mock_api.json');
-  return Album.fromJson(jsonDecode(data));
-}
+// Future<Album> fetchAlbum() async {
+//   final data = await rootBundle.loadString('assets/js/mock_api.json');
+//   return Album.fromJson(jsonDecode(data));
+// }
 
 class Album {
   final int userId;
@@ -78,23 +78,21 @@ class _HttpDemoState extends State<HttpDemo> {
               Navigator.pop(context);
             },
           ),
-          title: Text('Fetch Data Example666'),
+          title: Text('Fetch Data Example'),
         ),
-        body: Column(children: [
-          FutureBuilder<Album>(
-            future: futureAlbum,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data.title);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
-
-              // By default, show a loading spinner.
-              return CircularProgressIndicator();
-            },
-          )
-        ]),
+        body: Center(
+            child: FutureBuilder<Album>(
+          future: futureAlbum,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(snapshot.data.title);
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            // By default, show a loading spinner.
+            return CircularProgressIndicator();
+          },
+        )),
       ),
     );
   }

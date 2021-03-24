@@ -19,29 +19,27 @@ class StudyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            leading: BackButton(
-              color: Colors.white,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            title: Text('老徐Flutter 学习清单'),
-          ),
-          body: FutureBuilder(
-              future: DefaultAssetBundle.of(context)
-                  .loadString('assets/js/list.json'),
-              builder: (context, snapshot) {
+    return Scaffold(
+        body: FutureBuilder(
+            future: DefaultAssetBundle.of(context)
+                .loadString('assets/js/list.json'),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
                 var mydata = jsonDecode(snapshot.data);
+                // return ListView(children: [
+                //   for (var i = 0; i < mydata.length; i++)
+                //     _listItem(context, i, mydata)
+                // ]);
                 return ListView.builder(
                   itemCount: mydata.length,
                   itemBuilder: (BuildContext context, int index) {
                     return _listItem(context, index, mydata);
                   },
                 );
-              })),
-    );
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              return Center(child: CircularProgressIndicator());
+            }));
   }
 }
