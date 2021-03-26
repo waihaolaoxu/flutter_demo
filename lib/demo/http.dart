@@ -1,11 +1,39 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
+
+// 从本地资源
+// Future<Album> fetchAlbum() async {
+//   final data = await rootBundle.loadString('assets/js/mock_api.json');
+//   return Album.fromJson(jsonDecode(data));
+// }
+
+part 'http.g.dart';
+
+@JsonSerializable()
+
+class Album {
+  final int userId;
+  final int id;
+  final String title;
+
+  Album({this.userId, this.id, this.title});
+
+  factory Album.fromJson(Map<String, dynamic> json) => _$AlbumFromJson(json);
+  Map<String, dynamic> toJson() => _$AlbumToJson(this);
+  //  {
+  //   return Album(
+  //     userId: json['userId'],
+  //     id: json['id'],
+  //     title: json['title'],
+  //   );
+  // }
+}
 
 // 从远程
 Future<Album> fetchAlbum() async {
@@ -20,28 +48,6 @@ Future<Album> fetchAlbum() async {
     // If the server did not return a 200 OK response,
     // then throw an exception.
     throw Exception('Failed to load album');
-  }
-}
-
-// 从本地资源
-// Future<Album> fetchAlbum() async {
-//   final data = await rootBundle.loadString('assets/js/mock_api.json');
-//   return Album.fromJson(jsonDecode(data));
-// }
-
-class Album {
-  final int userId;
-  final int id;
-  final String title;
-
-  Album({this.userId, this.id, this.title});
-
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-    );
   }
 }
 

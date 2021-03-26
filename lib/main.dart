@@ -4,6 +4,7 @@ import 'package:my_flutter/studying_list.dart';
 import 'package:my_flutter/demo/http.dart';
 import 'package:my_flutter/demo/flutter_demo.dart';
 import 'package:my_flutter/demo/index.dart';
+import 'package:my_flutter/demo/demo.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +13,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: '老徐的 Flutter Demo',
-      home: Home(),
+      // home: Home(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Home(),
+        '/demo/flutter_demo': (context) => FlutterDemo(),
+        '/demo/http': (context) => HttpDemo(),
+      },
     );
   }
 }
@@ -82,8 +89,7 @@ class HomePage extends StatelessWidget {
           child: Text('跳转http页面'),
           onPressed: () {
             // Navigate to second route when tapped.
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HttpDemo()));
+            Navigator.pushNamed(context, '/demo/http');
           },
         ),
         ElevatedButton(
@@ -93,7 +99,17 @@ class HomePage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => FlutterDemo("上个页面传过来的参数")));
+                    builder: (context) => FlutterDemo()));
+          },
+        ),
+        ElevatedButton(
+          child: Text('demo'),
+          onPressed: () {
+            // Navigate to second route when tapped.
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Demo()));
           },
         ),
       ],

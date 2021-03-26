@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter/demo/http.dart';
 
 class DemoMenu extends StatelessWidget {
   final List _menu = [
-    {"name": "导航 Navigation", "route": HttpDemo()},
-    {"name": "使用 http请求数据并渲染", "route": HttpDemo()}
+    {"name": "导航 Navigation"},
+    {"name": "使用 http请求数据并渲染"}
   ];
 
   Widget _listItem(BuildContext context, int index, List mydata) {
@@ -27,8 +26,12 @@ class DemoMenu extends StatelessWidget {
               ),
               onPressed: () {
                 if(index == 1){
-                  Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HttpDemo()));
+                  // Navigator.push(
+                  // context, MaterialPageRoute(builder: (context) => HttpDemo()));
+                 
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) => HttpDemo()));
+
+                  Navigator.pushNamed(context, '/demo/http');
                 }
               },
             ),

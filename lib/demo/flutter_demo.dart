@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 class FlutterDemo extends StatelessWidget {
-  final id;
- 
-  FlutterDemo(this.id);
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +91,6 @@ class FlutterDemo extends StatelessWidget {
             // Image(
             //   image: NetworkImage('https://artwork.dyrs.cc/photo/418/154/000/60559926492547f0.jpg!hmm'),
             // ),
-            Text(id),
 
             titleSection,
             buttonSection,
